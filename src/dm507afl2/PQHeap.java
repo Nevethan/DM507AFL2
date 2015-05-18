@@ -5,6 +5,8 @@
  */
 package dm507afl2;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Eger
@@ -75,6 +77,12 @@ public class PQHeap implements PQ {
         addElementToBottomOfHeap(e);
         checkAndSwapParent(heapSize - 1);
     }
+
+    @Override
+    public int getHeapSize() {
+        return heapSize-1;
+    }
+
     private void addElementToBottomOfHeap(Element e){
         elements[heapSize] = e;
         heapSize++;
@@ -91,7 +99,12 @@ public class PQHeap implements PQ {
         return i/2;
     }
 
-
+    @Override
+    public String toString() {
+        return "PQHeap{" +
+                "elements=" + Arrays.toString(elements) +
+                '}';
+    }
 
     public static void main(String[] args) {
         PQHeap pqHeap = new PQHeap(5);

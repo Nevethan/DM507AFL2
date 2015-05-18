@@ -12,4 +12,5 @@ package dm507afl2;
 public interface PQ {
     Element extractMin();
     void insert(Element e);
+    int getHeapSize();
 }
