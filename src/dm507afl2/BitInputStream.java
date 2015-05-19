@@ -5,6 +5,7 @@
  */
 package dm507afl2;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -12,7 +13,7 @@ import java.io.InputStream;
  *
  * @author Eger
  */
-public class BitInputStream {
+public class BitInputStream implements Closeable {
     // Underlying byte stream to read from.
     private InputStream input;
 

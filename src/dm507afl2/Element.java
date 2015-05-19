@@ -16,7 +16,7 @@ public class Element {
     public String toString() {
         return "Element{" +
                 "key=" + key +
-                ", data=" + data +
+                ", left=" + data +
                 '}';
     }
 }
