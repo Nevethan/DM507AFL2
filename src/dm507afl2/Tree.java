@@ -1,4 +1,7 @@
 package dm507afl2;
 
-public class Tree {
+import java.util.Map;
+
+public abstract class Tree {
+    public abstract void buildMap(String pattern, Map<Integer, String> map) ;
 }
