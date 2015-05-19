@@ -79,7 +79,7 @@ public class PQHeap implements PQ {
     }
 
     @Override
-    public int getHeapSize() {
+    public int size() {
         return heapSize-1;
     }
 

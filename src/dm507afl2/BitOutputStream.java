@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dm507afl2;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- *
- * @author Eger
- */
-public class BitOutputStream {
-     // Underlying byte stream to write to.
+public class BitOutputStream implements Closeable {
+    // Underlying byte stream to write to.
     private OutputStream output;
 
     // The accumulated bits for the current byte. Always an int in the
@@ -28,35 +20,35 @@ public class BitOutputStream {
     // Creates a bit output stream based on the given byte output
     // stream.
     public BitOutputStream(OutputStream out) {
-	if (out == null)
-	    throw new NullPointerException("No output stream given");
-	output = out;
-	currentByte = 0;
-	numBitsInCurrentByte = 0;
+        if (out == null)
+            throw new NullPointerException("No output stream given");
+        output = out;
+        currentByte = 0;
+        numBitsInCurrentByte = 0;
     }
 
 
     // Writes a bit to the stream. The specified bit must be 0 or 1.
     public void writeBit(int b) throws IOException {
-	if (!(b == 0 || b == 1))
-	    throw new IllegalArgumentException("Argument must be 0 or 1");
-	currentByte = currentByte << 1 | b;
-	numBitsInCurrentByte++;
-	if (numBitsInCurrentByte == 8) {
-	    output.write(currentByte);
-	    numBitsInCurrentByte = 0;
-	}
+        if (!(b == 0 || b == 1))
+            throw new IllegalArgumentException("Argument must be 0 or 1");
+        currentByte = currentByte << 1 | b;
+        numBitsInCurrentByte++;
+        if (numBitsInCurrentByte == 8) {
+            output.write(currentByte);
+            numBitsInCurrentByte = 0;
+        }
     }
 
 
     // Writes an int to the stream.
     public void writeInt(int b) throws IOException {
 
-	int bitsWritten = 0;
-	while (bitsWritten < 32){
-	    writeBit(b >>> (31-bitsWritten) & 1);
-	    bitsWritten++;
-	}
+        int bitsWritten = 0;
+        while (bitsWritten < 32) {
+            writeBit(b >>> (31 - bitsWritten) & 1);
+            bitsWritten++;
+        }
     }
 
 
@@ -65,9 +57,9 @@ public class BitOutputStream {
     // minimum number of "0" bits (between 0 and 7 of them) are
     // written as padding to reach the next byte boundary.
     public void close() throws IOException {
-	while (numBitsInCurrentByte != 0)
-	    writeBit(0);
-	output.close();
+        while (numBitsInCurrentByte != 0)
+            writeBit(0);
+        output.close();
     }
-    
+
 }
